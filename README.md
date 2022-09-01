@@ -1,6 +1,6 @@
 # Research-Gate-WebApplication
 This Project is for Internet Application Course Project using ASP .NET Technology.
-I Participated in this Projet by Designing the Database, Completing Pages : Home, Add Paper, Paper Profile, Contact and About Pages
+<br>I Participated in this Projet by Designing the Database, Completing Pages : Home, Add Paper, Paper Profile, Contact and About Pages
 
 ## Main Features
 * Author creates an account
