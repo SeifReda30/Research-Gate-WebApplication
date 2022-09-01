@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c3eeba650a1e4952b94bf6463e2436b7" Name="Diagram1">
+        <EntityTypeShape EntityType="ResearchGateModel.Author" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResearchGateModel.Comment" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResearchGateModel.Paper" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResearchGateModel.Reaction" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="ResearchGateModel.FK__Reactions__Author" ManuallyRouted="false" />
+        <AssociationConnector Association="ResearchGateModel.FK_Comments_AuthorID" ManuallyRouted="false" />
+        <AssociationConnector Association="ResearchGateModel.FK_Comments_PaperID" ManuallyRouted="false" />
+        <AssociationConnector Association="ResearchGateModel.FK__Reactions__Paper" ManuallyRouted="false" />
+        <AssociationConnector Association="ResearchGateModel.Authors_Papers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

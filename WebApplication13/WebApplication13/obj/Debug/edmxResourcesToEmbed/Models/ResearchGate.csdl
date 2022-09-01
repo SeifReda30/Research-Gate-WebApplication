@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResearchGateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="University" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Reactions" Relationship="Self.FK__Reactions__Author" FromRole="Author" ToRole="Reactions" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_AuthorID" FromRole="Author" ToRole="Comments" />
+    <NavigationProperty Name="Papers" Relationship="Self.Authors_Papers" FromRole="Author" ToRole="Paper" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" />
+    <Property Name="PaperID" Type="Int32" Nullable="false" />
+    <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Author" Relationship="Self.FK_Comments_AuthorID" FromRole="Comments" ToRole="Author" />
+    <NavigationProperty Name="Paper" Relationship="Self.FK_Comments_PaperID" FromRole="Comments" ToRole="Paper" />
+  </EntityType>
+  <EntityType Name="Paper">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PaperFile" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="PublichYear" Type="Int32" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_PaperID" FromRole="Paper" ToRole="Comments" />
+    <NavigationProperty Name="Reactions" Relationship="Self.FK__Reactions__Paper" FromRole="Paper" ToRole="Reactions" />
+    <NavigationProperty Name="Authors" Relationship="Self.Authors_Papers" FromRole="Paper" ToRole="Author" />
+  </EntityType>
+  <EntityType Name="Reaction">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+      <PropertyRef Name="PaperID" />
+    </Key>
+    <Property Name="AuthorID" Type="Int32" Nullable="false" />
+    <Property Name="PaperID" Type="Int32" Nullable="false" />
+    <Property Name="ReactionType" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Author" Relationship="Self.FK__Reactions__Author" FromRole="Reactions" ToRole="Author" />
+    <NavigationProperty Name="Paper" Relationship="Self.FK__Reactions__Paper" FromRole="Reactions" ToRole="Paper" />
+  </EntityType>
+  <Association Name="FK__Reactions__Author">
+    <End Role="Author" Type="Self.Author" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reactions" Type="Self.Reaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reactions">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_AuthorID">
+    <End Role="Author" Type="Self.Author" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_PaperID">
+    <End Role="Paper" Type="Self.Paper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="PaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reactions__Paper">
+    <End Role="Paper" Type="Self.Paper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reactions" Type="Self.Reaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reactions">
+        <PropertyRef Name="PaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Authors_Papers">
+    <End Role="Author" Type="Self.Author" Multiplicity="*" />
+    <End Role="Paper" Type="Self.Paper" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="ResearchGateEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Self.Author" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Papers" EntityType="Self.Paper" />
+    <EntitySet Name="Reactions" EntityType="Self.Reaction" />
+    <AssociationSet Name="FK__Reactions__Author" Association="Self.FK__Reactions__Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Reactions" EntitySet="Reactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_AuthorID" Association="Self.FK_Comments_AuthorID">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_PaperID" Association="Self.FK_Comments_PaperID">
+      <End Role="Paper" EntitySet="Papers" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reactions__Paper" Association="Self.FK__Reactions__Paper">
+      <End Role="Paper" EntitySet="Papers" />
+      <End Role="Reactions" EntitySet="Reactions" />
+    </AssociationSet>
+    <AssociationSet Name="Authors_Papers" Association="Self.Authors_Papers">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Paper" EntitySet="Papers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

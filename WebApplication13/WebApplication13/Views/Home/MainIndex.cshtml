@@ -1,0 +1,208 @@
+﻿@model WebApplication13.Models.Author
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Loading third party fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="~/IndexAssets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Loading main css file -->
+    <link rel="stylesheet" href="~/IndexAssets/style.css">
+    <script src="~/IndexAssets/js/jquery-1.11.1.min.js"></script>
+    <script src="~/IndexAssets/js/plugins.js"></script>
+    <script src="~/IndexAssets/js/app.js"></script>
+    <script src="~/IndexAssets/js/min/app-min.js"></script>
+    <script src="~/IndexAssets/js/min/plugins-min.js"></script>
+    <script src="~/IndexAssets/js/ie-support/respond.js"></script>
+    <script src="~/IndexAssets/js/ie-support/html5.js"></script>
+</head>
+<body>
+    @Html.Partial("~/Views/MainHeader.cshtml")
+
+    <div class="site-content">
+        <div class="w3-content w3-display-container" style="max-width:1350px">
+            <div class="mySlides">
+                <img src="~/IndexAssets/images/slider-1.jpg" style="max-width:100% ; max-height:105%">
+                <div class="text">Discover scientific knowledge and stay connected to the world of science</div>
+            </div>
+            <div class="mySlides">
+                <img src="~/IndexAssets/images/E5hIop2WEAYofOi.jpg" style="width:100% ; height:608px">
+                <div class="text">Connect with your scientific community</div>
+            </div>
+            <div class="mySlides">
+                <img src="~/IndexAssets/images/slider-3.jpg" style="max-width:100% ; max-height:105%">
+                <div class="text">Share your research, collaborate with your peers, and get the support you need to advance your career.</div>
+            </div>
+            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%; padding:-2px ; position: absolute">
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <main class="main-content">
+            <div class="fullwidth-block">
+                <div class="container">
+                    <text class="historytitle">Testimonials</text>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="feature">
+                                <img src="~/IndexAssets/images/istockphoto-1289220781-612x612.jpg" alt="" class="feature-image" style="clip-path:circle() ; max-width:100%;max-height:100% ">
+                                <h2 class="author-title">Doris Lessing</h2>
+                                <h1 class="author-type">Psychologist</h1>
+                                <p>ResearchGate is fantastic if you’re looking to target pschycologists and researchers. I know from experience that my audience are on the platform, and it’s great that I can reach them while they work.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="feature">
+                                <img src="~/IndexAssets/images/young-male-scientist-holding-digital-tablet-while-sitting-at-desk-in-laboratory-GIOF11592.jpg" alt="" class="feature-image" style="clip-path:circle() ; max-width:100%;max-height:100% ">
+                                <h2 class="author-title">Joann E Manson</h2>
+                                <h1 class="author-type">Scientist</h1>
+                                <p>The ResearchGate team is very professional and sympathetic to the size of the organization and the support we need, which is something that I haven’t come across even in my previous roles in other organizations.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="feature">
+                                <img src="~/IndexAssets/images/istockphoto-1182472756-612x612.jpg" alt="" class="feature-image" style="clip-path:circle() ; max-width:100%;max-height:100% ">
+                                <h2 class="author-title">Dave Cutler</h2>
+                                <h1 class="author-type">Software Engineer</h1>
+                                <p>ResearchGate is the most forward-thinking advertising partner that we work with, constantly coming up with new ways to reach our audience.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="feature">
+                                <img src="~/IndexAssets/images/wiseman_chief_astronaut_0 (1).jpg" alt="" class="feature-image" style="clip-path:circle() ; max-width:70%;max-height:70% ">
+                                <h2 class="author-title">Daniel Bursch</h2>
+                                <h1 class="author-type">Astronaut</h1>
+                                <p>The ResearchGate targeting process means that display ads are shown to relevant people. This increases the likelihood of prospects becoming engaged.”.</p>
+                            </div>
+                        </div>
+                    </div> <!-- .row -->
+                </div> <!-- .container -->
+            </div> <!-- .fullwidth-block -->
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2 class="section-title">Our mission and vision</h2>
+                            <img src="~/IndexAssets/images/Screenshot 2022-05-01 061207.png" alt="" class="mission-image" style="clip-path:circle() ; max-width:100%;max-height:100%;position:absolute;right:-380px;bottom:-28px ">
+                            <p class="section-data">Building a community of authors of books and scientific research in various fields, helping each researcher and author to publish his research and scientific articles and participating in scientific research with his colleagues with the aim of professional advancement, which increases cooperation between our members.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main> <!-- .main-content -->
+       @Html.Partial("~/Views/Footer.cshtml")
+    </div>
+    <style>
+        .feature {
+            transition: transform .2s;
+        }
+            .feature:hover {
+                transform: scale(1.1);
+            }
+        .footer-title {
+            font-family: Nexa;
+            color: Black;
+            font-weight: 500;
+            font-size: 20px;
+        }
+        .section-title {
+            font-family: Nexa;
+            color: white;
+            font-weight: 600;
+            font-size: 50px;
+        }
+        .section-data {
+            color: whitesmoke;
+            font-weight: 600;
+            font-size: 23px;
+        }
+        .author-type {
+            color: black;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .author-title {
+            font-family: Nexa;
+            color: black;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        .historytitle {
+            font-family: Nexa;
+            color: white;
+            font-weight: 600;
+            font-size: 35px;
+        }
+        .text {
+            color: #f2f2f2;
+            font-weight: 600;
+            font-size: 35px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 120px;
+            width: 100%;
+            text-align: center;
+        }
+        .mySlides {
+            display: none; 
+        }
+
+        .w3-left, .w3-right, .w3-badge {
+            cursor: pointer;
+        }
+
+        .w3-badge {
+            height: 25px;
+            width: 25px;
+            padding: 10px;
+        }
+
+    </style>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function currentDiv(n) {
+            showDivs(slideIndex = n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " w3-white";
+        }
+    </script>
+
+</body>
+</html>

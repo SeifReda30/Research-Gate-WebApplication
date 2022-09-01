@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ResearchGateModelStoreContainer" CdmEntityContainer="ResearchGateEntities">
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="ResearchGateModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="University" ColumnName="University" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="ResearchGateModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="PaperID" ColumnName="PaperID" />
+          <ScalarProperty Name="Comment1" ColumnName="Comment" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Papers">
+      <EntityTypeMapping TypeName="ResearchGateModel.Paper">
+        <MappingFragment StoreEntitySet="Paper">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PaperFile" ColumnName="PaperFile" />
+          <ScalarProperty Name="PublichYear" ColumnName="PublichYear" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reactions">
+      <EntityTypeMapping TypeName="ResearchGateModel.Reaction">
+        <MappingFragment StoreEntitySet="Reactions">
+          <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+          <ScalarProperty Name="PaperID" ColumnName="PaperID" />
+          <ScalarProperty Name="ReactionType" ColumnName="ReactionType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Authors_Papers" TypeName="ResearchGateModel.Authors_Papers" StoreEntitySet="Authors_Papers">
+      <EndProperty Name="Author">
+        <ScalarProperty Name="ID" ColumnName="AuthorID" />
+      </EndProperty>
+      <EndProperty Name="Paper">
+        <ScalarProperty Name="ID" ColumnName="PaperID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

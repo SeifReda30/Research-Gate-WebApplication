@@ -1,0 +1,74 @@
+﻿@using WebApplication13.Models
+@model WebApplication13.Models.Author
+
+<html>
+<head>
+
+    <link href="~/MainHeaderAssets/CSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MainHeaderAssets/CSS/MainHeader.css" rel="stylesheet" />
+    <link href="~/MainHeaderAssets/CSS/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/MainHeaderAssets/JS/bootstrap.bundle.min.js"></script>
+    <script src="~/MainHeaderAssets/JS/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/MainHeaderAssets/JS/MainHeader.js"></script>
+
+</head>
+<body>
+    @{ var userid = Convert.ToInt32(Session["userid"]);
+        var context = new ResearchGateEntities();
+        var author = context.Authors.Find(userid);
+        if (userid != 0)
+        {
+            string imageBase64 = Convert.ToBase64String(author.ProfileImage);
+            string imageSrc = string.Format("data:image/jpg;base64,{0}", imageBase64);
+            <header class="header">
+                <nav class="navbar navbar-expand-lg fixed-top py-3">
+                    <div class="container">
+                        <a href="@Url.Action("MainIndex", "Home")" class="navbar-brand text-uppercase font-weight-bold" style="margin-left:-80px">Research Gate</a>
+                        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
+                        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+
+                            <ul class="navbar-nav ml-auto">
+                                
+                                <li class="nav-item">@Html.Partial("~/Views/SearchBar.cshtml")</li>
+
+                                <li class="nav-item"><b class="nav-link text-uppercase font-weight-bold">Welcome ! </b></li>
+                                <li class="nav-item"><img src="@imageSrc" style="border-radius:50%;width:40px;height:40px;position:relative" /></li>
+                                <li class="nav-item"> <a href="@Url.Action("Author", "Profile", new { id = author.ID })" class="nav-link text-uppercase font-weight-bold">@author.FirstName @author.LastName</a></li>
+                                <li class="nav-item active"><a href="@Url.Action("MainIndex", "Home")" class="nav-link text-uppercase font-weight-bold">Home <span class="sr-only">(current)</span></a></li>
+                                <li class="nav-item"><a href="@Url.Action("Contact", "Home")" class="nav-link text-uppercase font-weight-bold">Contact</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Logout", "Home")" class="nav-link text-uppercase font-weight-bold">Logout</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+
+        }
+
+        else
+        {
+            <header class="header">
+                <nav class="navbar navbar-expand-lg fixed-top py-3">
+                    <div class="container">
+                        <a href="@Url.Action("MainIndex", "Home")" class="navbar-brand text-uppercase font-weight-bold">Research Gate</a>
+                        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
+
+                        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item active"><a href="@Url.Action("MainIndex", "Home")" class="nav-link text-uppercase font-weight-bold">Home <span class="sr-only">(current)</span></a></li>
+                                <li class="nav-item"> <a href="@Url.Action("login", "Login")" class="nav-link text-uppercase font-weight-bold">Login</a></li>
+                                <li class="nav-item"><a href="@Url.Action("createAuthor", "CreateAuthor")" class="nav-link text-uppercase font-weight-bold">Signup</a></li>
+                                <li class="nav-item"><a href="@Url.Action("Contact", "Home")" class="nav-link text-uppercase font-weight-bold">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+        }
+
+    }
+</body>
+</html>

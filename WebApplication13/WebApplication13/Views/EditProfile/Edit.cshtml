@@ -1,0 +1,68 @@
+﻿@model WebApplication13.Models.Author
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/EditProfile Asset/CSS/UpdataProfile.css">
+    <script defer src="~/EditProfile Asset/Script/Edit.js"></script>
+    <title>Edit</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h2>Edit Account</h2>
+        </div>
+        @using (Html.BeginForm("ApplyEdit", "EditProfile", FormMethod.Post, new { id = "form", @class = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-control">
+                <label for="firstname">First Name</label>
+                <input type="text" placeholder="First Name" id="FirstName" name="FirstName" value="@Model.FirstName" required />
+            </div>
+            <div class="form-control">
+                <label for="lastname">Last Name</label>
+                <input type="text" placeholder="Last Name" id="LastName" name="LastName" value="@Model.LastName" required />
+            </div>
+            <div class="form-control">
+                <label for="username">Email</label>
+                <input type="email" placeholder="Email" id="email" name="Email" value="@Model.Email" required />
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="Mobile">Mobile</label>
+                <input type="text" placeholder="Mobile" id="Mobile" name="Mobile" value="@Model.Mobile" required />
+            </div>
+            <div class="form-control">
+                <label for="University">University</label>
+                <input type="text" placeholder="University" id="University" name="University" value="@Model.University" required />
+            </div>
+            <div class="form-control">
+                <label for="Department">Department</label>
+                <input type="text" placeholder="Department" id="Department" name="Department" value="@Model.Department" required />
+            </div>
+            <div class="form-control">
+                <input type="hidden" id="ProfileImage" name="ProfileImage" value="@Model.ProfileImage" required />
+            </div>
+            <div id="button" class="form-control"><input type="button" value="Edit photo" class="button" onclick="editPhoto()"></div>
+            <br />
+            <div class="form-control">
+                <label for="username">Password</label>
+                <input type="password" placeholder="Password" id="password" name="Password" value="@Model.Password" required />
+            </div>
+            <div><input type="checkbox" onclick="ShowPassword()">Show Password</div>
+            <button class="button">submit</button>
+            <a href="@Url.Action("Author","Profile",new { id= Convert.ToInt32(Session["userid"])})" style="text-decoration:none"><button class="button">Back</button></a>
+
+        }
+    </div>
+
+</body>
+</html>
+

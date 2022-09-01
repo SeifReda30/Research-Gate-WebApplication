@@ -1,0 +1,361 @@
+﻿@model WebApplication13.Models.Paper
+@using WebApplication13.Models
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>PaperProfile</title>
+    <link href="~/PaperProfileAssets/css/main.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+    @Html.Partial("~/Views/MainHeader.cshtml", new ViewDataDictionary())
+
+
+
+    <div class="slideshow-container">
+
+        <div class="mySlides fade">
+            <img src="~/PaperProfileAssets/images/banner2.jpg" style="width:1345px;height:600px">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="~/PaperProfileAssets/images/shutterstock_1101286895.jpg" style="width:1345px;height:600px">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="~/PaperProfileAssets/images/content_How_Long_Does_It_Take_to_Write_a_10-Page_Paper_It_s_Sorta_Up_to_You.png" style="width:1345px;height:600px">
+        </div>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <div class="papercontainer">
+
+        <h1 class="title" style="color:#2C3E50;font-family:Nexa;">@Model.Title</h1><br>
+        <p style="font-size:25px;color:#4ca1af;font-family:Nexa;"><b>Category <span><b>:</b></span> </b><span style="font-size:20px; color:#2C3E50"><b>@Model.Category </b></span></p> <br>
+        <p style="font-size:23px;color:#4ca1af;font-family:Nexa;"><b>Publish Year <span><b>:</b></span> </b><span style="font-size:20px; color:#2C3E50"><b>@Model.PublichYear </b></span></p> <br>
+        <p style="font-size:25px;color:#4ca1af;font-family:Nexa;"><b>Authors</b></p>
+        <p>
+            @foreach (var item in Model.Authors)
+            {
+                <span style="font-size:18px;color:lightblue"><b><a href="@Url.Action("Author", "Profile", new { id = item.ID })">@item.FirstName @item.LastName</a></b>&nbsp;&nbsp;</span>
+
+            }
+        </p>
+        <br>
+        @{
+            string fileBase64 = Convert.ToBase64String(Model.PaperFile);
+            string filesrc = string.Format("data:application/pdf;base64,{0}", fileBase64);
+            <embed src="@filesrc" style="width:870px;height:420px;" />
+        }
+
+    </div>
+    <div id="calcreactios">
+        @{
+            var likes = Model.Reactions.Where(s => s.ReactionType == true).ToList();
+            var dislikes = Model.Reactions.Where(s => s.ReactionType == false).ToList();
+
+        }
+    </div>
+
+    <span class="reaction">
+        <i class="fa fa-thumbs-up" style="font-size:36px" onclick="like()" onload="load()"></i>
+        <span id="like" style="color:#2C3E50;font-weight:bold;font-size:35px;">@likes.Count</span>
+        <i class="fa fa-thumbs-down" style="font-size:36px" onclick="dislike()" onload="load()"></i>
+        <span id="dislike" style="color:#2C3E50;font-weight:bold;font-size:35px">@dislikes.Count</span>
+
+    </span>
+
+
+    <a href="@filesrc" download="@Model.Title" style="text-decoration:none"><button class="downloadbutton" style="color:white"><i class="fa fa-download"></i><b>&nbsp;Download</b></button></a>
+
+
+    <br> <br> <br> <br>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 col-md-6 col-12 pb-4">
+                    <h1>Comments</h1>
+                    <div id="loadcomments" style="display:inline-block;">
+                        @Html.Partial("~/Views/Paper/LoadComments.cshtml", Model.Comments)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                    <form id="algin-form">
+                        <div class="form-group">
+                            <h4 style="font-size:20px;">What do you think about the paper ? Leave a comment now !</h4>
+                            @using (Html.BeginForm("AddComment", "Paper", FormMethod.Post))
+                            {
+
+                                <textarea name="comment" id="commentbox" msg cols="30" rows="5" class="form-control" style="background-color: white;" required></textarea>
+                            }
+                        </div>
+                        <button type="button" class="btn" id="post">Post Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @Html.Partial("~/Views/Footer.cshtml")
+
+
+    <style>
+
+        .downloadbutton {
+            background-color: green;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 500px;
+            margin-top: 30px;
+        }
+
+            /* Darker background on mouse-over */
+            .downloadbutton:hover {
+                background-color: darkgreen;
+            }
+    </style>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 1500); // Change image every 2 seconds
+        }
+    </script>
+    <script>
+        var color1 = document.getElementsByClassName('fa-thumbs-up')[0];
+        var color2 = document.getElementsByClassName('fa-thumbs-down')[0];
+        window.onload= function load() {
+            @{
+                int authorreact=0;
+                int exist = 0;
+                foreach(var item in Model.Reactions)
+                {
+                    if (item.AuthorID== Convert.ToInt32(Session["userid"]))
+                    {
+                        authorreact =Convert.ToInt32( item.ReactionType);
+                        exist = 1;
+                        break;
+                    }
+                }
+            }
+
+            if (@authorreact && @exist) {
+                color1.style.color = 'blue';
+                color2.style.color = 'black';
+            }
+            else if (!@authorreact && @exist)
+            {
+                color1.style.color = 'black';
+                color2.style.color = 'red';
+            }
+
+        };
+        </script>
+    <script>
+
+        var color1 = document.getElementsByClassName('fa-thumbs-up')[0];
+        var color2 = document.getElementsByClassName('fa-thumbs-down')[0];
+
+
+            function like() {
+
+                if (color1.style.color === 'blue') {
+                    color1.style.color = 'black';
+               $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveReaction", "Paper")',
+                   data: { id:@Model.ID},
+
+                    });
+                    var like = document.getElementById('like');
+                    var likenumber = like.innerHTML;
+                    var dislike = document.getElementById('dislike');
+                    var dislikenumber = dislike.innerHTML;
+                    likenumber--;
+                    like.innerHTML = likenumber;
+                    
+                }
+                else if (color2.style.color === 'red')
+                {
+                    color2.style.color = 'black';
+                    color1.style.color = 'blue';
+
+                  $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveReaction", "Paper")',
+                data: {id:@Model.ID},
+
+                    });
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddLike", "Paper")',
+                data: {id:@Model.ID},
+                    });
+                    var like = document.getElementById('like');
+                    var likenumber = like.innerHTML;
+                    var dislike = document.getElementById('dislike');
+                    var dislikenumber = dislike.innerHTML;
+                    likenumber++;
+                    like.innerHTML = likenumber;
+                    dislikenumber--;
+                    dislike.innerHTML = dislikenumber;
+                    
+
+
+                }
+                else
+                {
+                    color1.style.color = 'blue';
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddLike", "Paper")',
+                data: {id:@Model.ID},
+                    });
+                    var like = document.getElementById('like');
+                    var likenumber = like.innerHTML;
+                    var dislike = document.getElementById('dislike');
+                    var dislikenumber = dislike.innerHTML;
+                    likenumber++;
+                    like.innerHTML = likenumber;
+                    
+                }
+
+                color2.style.color = 'black';
+
+
+
+            }
+
+
+        function dislike() {
+
+            if (color2.style.color === 'red') {
+                color2.style.color = 'black';
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveReaction", "Paper")',
+                   data: { id:@Model.ID},
+
+                });
+                var like = document.getElementById('like');
+                var likenumber = like.innerHTML;
+                var dislike = document.getElementById('dislike');
+                var dislikenumber = dislike.innerHTML;
+                dislikenumber--;
+                dislike.innerHTML = dislikenumber;
+                
+                }
+            else if (color1.style.color === 'blue')
+            {
+                color1.style.color = 'black';
+                color2.style.color = 'red';
+
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("RemoveReaction", "Paper")',
+                data: {id:@Model.ID},
+
+                    });
+                $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddDislike", "Paper")',
+                data: {id:@Model.ID},
+                });
+                var like = document.getElementById('like');
+                var likenumber = like.innerHTML;
+                var dislike = document.getElementById('dislike');
+                var dislikenumber = dislike.innerHTML;
+                likenumber--;
+                like.innerHTML = likenumber;
+                dislikenumber++;
+                dislike.innerHTML = dislikenumber;
+                
+                }
+                else
+            {
+                color2.style.color = 'red';
+                   $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddDislike", "Paper")',
+                data: {id:@Model.ID},
+                });
+                var like = document.getElementById('like');
+                var likenumber = like.innerHTML;
+                var dislike = document.getElementById('dislike');
+                var dislikenumber = dislike.innerHTML;
+                dislikenumber++;
+                dislike.innerHTML = dislikenumber;
+                
+            }
+            color1.style.color = 'black';
+
+            }
+
+
+
+        $("#post").click(function () {
+                if ($("#commentbox").val()=='') {
+                    alert("Your Comment Shouldn't Be Empty");
+                    return false;
+                }
+
+
+                var txt = $("#commentbox").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddComment", "Paper")',
+                data: { comment: txt , id:@Model.ID},
+
+                success: function () {
+                    $("#loadcomments").load(window.location.href + " #loadcomments");
+                    }
+                });
+            });
+
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>

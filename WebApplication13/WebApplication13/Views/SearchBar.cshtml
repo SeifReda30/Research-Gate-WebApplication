@@ -1,0 +1,136 @@
+﻿@using WebApplication13.Models;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div>
+    <span style="margin-top:300px;margin-left:-280px">
+        <label for="search"><b class="nav-link text-uppercase font-weight-bold">Search By : </b></label>
+        <select name="search" class="search" id="search">
+            <option value="Name">Name</option>
+            <option value="Email">Email</option>
+            <optgroup label="University">
+                @{
+                    ResearchGateEntities context = new ResearchGateEntities();
+                    List<string> universities = new List<string>();
+                    foreach (var item in context.Authors)
+                    {
+                        if (!universities.Contains(item.University))
+                        {
+                            universities.Add(item.University);
+                            <option value="@item.University">@item.University</option>
+                        }
+                    }
+                }
+            </optgroup>
+        </select>
+        <span>
+        <span class="topnav" style="margin-top:-5px;">
+            <span class="search-container">
+
+                <input type="text" placeholder="Search.." id="author" class="search" style="border:1px solid black">
+                <button type="submit" onclick="GetAuthor()"><i class="fa fa-search"></i></button>
+            </span>
+        </span>
+    </span>
+
+
+</div>
+
+    <style>
+            .topnav a {
+                float: left;
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+                .topnav a.active {
+                    background-color: #2196F3;
+                    color: white;
+                }
+
+
+
+            .topnav input[type=text] {
+                padding: 6px;
+                margin-top: 8px;
+                font-size: 17px;
+                border: none;
+            }
+
+            .topnav .search-container button {
+                float: right;
+                padding: 7px 10px;
+                margin-top: 8px;
+                margin-right: 16px;
+                background: #ddd;
+                font-size: 17px;
+                border: none;
+                cursor: pointer;
+            }
+
+                .topnav .search-container button:hover {
+                    background: #ccc;
+                }
+    </style>
+    <script>
+
+    function GetAuthor() {
+        var author = document.getElementById('author').value;
+        var selection = document.getElementById('search').value;
+        if (selection == "Name") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetAuthorbyName", "SearchBar")',
+                data: { authorname: author },
+                success: function (response) {
+                    if (response.result == false) {
+                        alert("Please Enter Correct Author Full Name");
+                    }
+                    else {
+                        window.location.href = response.redirectToUrl;
+                    }
+                }
+            });
+
+        }
+        else if (selection == "Email") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetAuthorbyEmail", "SearchBar")',
+                data: { authoremail: author },
+                success: function (response) {
+                    if (response.result == false) {
+                        alert("Please Enter Correct Author Email");
+                    }
+                    else {
+                        window.location.href = response.redirectToUrl;
+                    }
+                }
+            });
+        }
+        else {
+                 $.ajax({
+                type: 'POST',
+                     url: '@Url.Action("GetAuthorbyUniversity", "SearchBar")',
+                     data: { authoruniversity: selection, authorname:author },
+                success: function (response) {
+                    if (response.result == false) {
+                        alert("Please Ensure that you have chosen the correct University for this Author");
+                    }
+                    else {
+                        window.location.href = response.redirectToUrl;
+                    }
+                }
+            });
+        }
+       
+    };
+
+    </script>

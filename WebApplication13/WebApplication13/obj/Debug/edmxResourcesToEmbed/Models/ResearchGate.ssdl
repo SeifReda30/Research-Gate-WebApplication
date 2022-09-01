@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ResearchGateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfileImage" Type="varbinary(max)" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="University" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Department" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Authors_Papers">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+      <PropertyRef Name="PaperID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" />
+    <Property Name="PaperID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" />
+    <Property Name="PaperID" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="varchar(max)" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Paper">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PaperFile" Type="varbinary(max)" Nullable="false" />
+    <Property Name="PublichYear" Type="int" Nullable="false" />
+    <Property Name="Category" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reactions">
+    <Key>
+      <PropertyRef Name="AuthorID" />
+      <PropertyRef Name="PaperID" />
+    </Key>
+    <Property Name="AuthorID" Type="int" Nullable="false" />
+    <Property Name="PaperID" Type="int" Nullable="false" />
+    <Property Name="ReactionType" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Authors_P__Autho__2C3393D0">
+    <End Role="Author" Type="Self.Author" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Authors_Papers" Type="Self.Authors_Papers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Authors_Papers">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Authors_P__Paper__2D27B809">
+    <End Role="Paper" Type="Self.Paper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Authors_Papers" Type="Self.Authors_Papers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Authors_Papers">
+        <PropertyRef Name="PaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reactions__Author">
+    <End Role="Author" Type="Self.Author" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reactions" Type="Self.Reactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reactions">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reactions__Paper">
+    <End Role="Paper" Type="Self.Paper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reactions" Type="Self.Reactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Reactions">
+        <PropertyRef Name="PaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_AuthorID">
+    <End Role="Author" Type="Self.Author" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="AuthorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_PaperID">
+    <End Role="Paper" Type="Self.Paper" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paper">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="PaperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ResearchGateModelStoreContainer">
+    <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Authors_Papers" EntityType="Self.Authors_Papers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paper" EntityType="Self.Paper" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reactions" EntityType="Self.Reactions" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Authors_P__Autho__2C3393D0" Association="Self.FK__Authors_P__Autho__2C3393D0">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Authors_Papers" EntitySet="Authors_Papers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Authors_P__Paper__2D27B809" Association="Self.FK__Authors_P__Paper__2D27B809">
+      <End Role="Paper" EntitySet="Paper" />
+      <End Role="Authors_Papers" EntitySet="Authors_Papers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reactions__Author" Association="Self.FK__Reactions__Author">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Reactions" EntitySet="Reactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reactions__Paper" Association="Self.FK__Reactions__Paper">
+      <End Role="Paper" EntitySet="Paper" />
+      <End Role="Reactions" EntitySet="Reactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_AuthorID" Association="Self.FK_Comments_AuthorID">
+      <End Role="Author" EntitySet="Author" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_PaperID" Association="Self.FK_Comments_PaperID">
+      <End Role="Paper" EntitySet="Paper" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

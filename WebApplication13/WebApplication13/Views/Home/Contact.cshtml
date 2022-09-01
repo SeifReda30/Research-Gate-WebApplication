@@ -1,0 +1,137 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+    <title>Contact</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Loading third party fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="~/ContactAssets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Loading main css file -->
+    <link rel="stylesheet" href="~/ContactAssets/style.css">
+    <script src="~/ContactAssets/js/jquery-1.11.1.min.js"></script>
+    <script src="~/ContactAssets/js/plugins.js"></script>
+    <script src="~/ContactAssets/js/app.js"></script>
+    <script src="~/ContactAssets/js/min/app-min.js"></script>
+    <script src="~/ContactAssets/js/min/plugins-min.js"></script>
+    <script src="~/ContactAssets/js/ie-support/respond.js"></script>
+    <script src="~/ContactAssets/js/ie-support/html5.js"></script>
+</head>
+
+<body>
+
+    <div class="site-content">
+        @Html.Partial("~/Views/MainHeader.cshtml", new ViewDataDictionary())
+        <div class="container">
+            <h2 class="contact-title">Contact</h2>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+        <main class="main-content">
+            <div class="fullwidth-block">
+                <div class="container">
+                    <div class="map" data-latitude="-6.897789" data-longitude="107.621735"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="boxed-content">
+                                <h2 class="section-title">Address</h2>
+                                <address>
+                                    <p>Company Name INC.</p>
+                                    <p>423 Avenue Street, Chicago, IL 60610</p>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="boxed-content">
+                                <h2 class="section-title">Telephone</h2>
+                                <p><strong>Office:</strong> +1 800 321 431</p>
+                                <p><strong>Support:</strong> +1 800 903 412</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="boxed-content">
+                                <h2 class="section-title">Email</h2>
+                                <p><strong>Office:</strong> <a href="mailto:office@companyname.com">office@ResearchGate.com</a></p>
+                                <p><strong>Support:</strong> <a href="mailto:support@companyname.com">support@ResearchGate.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row contact-form">
+                        <form action="#" name="form1" onsubmit="required()">
+                            <div class="col-md-4">
+                                <p><input type="text" placeholder="Your name..." name="text1" size="60"></p>
+                                <p><input type="text" placeholder="Email..." name="text2" size="60"></p>
+                                <p><input type="text" placeholder="Website..." name="text3" size="60"></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>
+                                    <textarea placeholder="Message" name="message"></textarea>
+                                </p>
+                                <p class="text-right">
+                                    <input type="submit" value="Send message">
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main> <!-- .main-content -->
+        @Html.Partial("~/Views/Footer.cshtml")
+    </div>
+    <style>
+        .section-title {
+            text-align: center;
+            color: black;
+            font-weight: 600;
+            font-size: 30px;
+        }
+        .boxed-content {
+            border-radius: 25px;
+            background-color: white;
+        }
+        .contact-title {
+            position:absolute;
+            top:100px;
+            left:600px;
+            text-align: center;
+            font-family: Nexa;
+            color: white;
+            font-weight: 600;
+            font-size: 35px;
+        }
+        </style>
+    <script src="~/ContactAssets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+    <script src="~/ContactAssets/js/plugins.js"></script>
+    <script src="~/ContactAssets/js/app.js"></script>
+    <script>
+        function required() {
+            var empt1 = document.forms["form1"]["text1"].value;
+            var empt2 = document.forms["form1"]["text2"].value;
+            var empt3 = document.forms["form1"]["text3"].value;
+            var empt4 = document.forms["form1"]["message"].value;
+
+            if (empt1 == "" || empt2 == "" || empt3 == "" || empt4 == "") {
+                alert("Please Fill all the inputs");
+                return false;
+            }
+            else {
+                alert('Thank you for contacting us');
+                return true;
+            }
+        }
+
+     </script>
+
+</body>
+</html>

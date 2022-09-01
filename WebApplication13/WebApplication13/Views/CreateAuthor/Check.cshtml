@@ -1,0 +1,68 @@
+﻿@using WebApplication13.Models;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/SignUp Asset/CSS/SignUp.css">
+    <script defer src="~/SignUp Asset/Script/signUp.js"></script>
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Create Account</h2>
+        </div>
+        @using (Html.BeginForm("AddAuthor", "CreateAuthor", FormMethod.Post, new { id = "form", @class = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-control">
+                <label for="firstname">First Name</label>
+                <input type="text" placeholder="First Name" name="FirstName" id="FirstName" required />
+            </div>
+            <div class="form-control">
+                <label for="lastname">Last Name</label>
+                <input type="text" placeholder="Last Name" name="LastName" id="LastName" required />
+            </div>
+            <div class="form-control">
+                <label for="username">Email</label>
+                <input type="email" placeholder="Email" name="Email" id="email" required />
+                <br />
+                <text style="color:red;font-size:15px">The Email address you entered already exists.</text>
+            </div>
+            <div class="form-control">
+                <label for="Mobile">Mobile</label>
+                <input type="text" placeholder="Mobile" name="Mobile" id="Mobile" required />
+            </div>
+            <div class="form-control">
+                <label for="University">University</label>
+                <input type="text" placeholder="University" name="University" id="University" required />
+            </div>
+            <div class="form-control">
+                <label for="Department">Department</label>
+                <input type="text" placeholder="Department" name="Department" id="Department" required />
+            </div>
+            <div class="form-control">
+                <label for="ProfileImage">Upload Profile Image</label>
+                <input type="file" id="ProfileImage" name="ProfileImage" required accept="image/*" />
+            </div>
+
+            <div class="form-control">
+                <label for="username">Password</label>
+                <input type="password" placeholder="Password" name="Password" id="Password" required />
+            </div>
+            <div><input type="checkbox" onclick="ShowPassword()">Show Password</div>
+
+            <button>Create</button>
+        }
+    </div>
+</body>
+</html>
+

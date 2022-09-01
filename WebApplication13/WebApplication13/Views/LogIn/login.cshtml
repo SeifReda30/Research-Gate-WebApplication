@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/LogIn Asset/CSS/Login.css">
+    <title>log in</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Log In</h2>
+        </div>
+        <div class="form">
+            @using (Html.BeginForm("Check", "LogIn", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-control">
+                    <label for="username">Email</label>
+                    <input type="email" placeholder="Email" name="Email" id="email" />
+                </div>
+                <div class="form-control">
+                    <label for="username">Password</label>
+                    <input type="password" placeholder="Password" name="Password" id="password" />
+                </div>
+                <button>Submit</button>
+
+            }
+            <a href="@Url.Action("Logout","Home")" style="text-decoration:none"><button>Back</button></a>
+
+        </div>
+
+
+
+    </div>
+</body>
+</html>

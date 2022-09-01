@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WebApplication13.Models.Comment>
+
+
+@foreach (var item in Model)
+{
+    string imageBase64 = Convert.ToBase64String(item.Author.ProfileImage);
+    string imagesrc = string.Format("data:image/jpg;base64,{0}", imageBase64);
+    <div class="comment mt-4 text-justify float-left">
+        <img src="@imagesrc" alt="" class="rounded-circle" width="40" height="40">
+        <h4 style="color:white">&nbsp;@item.Author.FirstName @item.Author.LastName</h4>
+        <br><br>
+        <p style="color:white"><b>@item.Comment1</b></p>
+    </div>
+    <br><br><br>
+
+}
+
+

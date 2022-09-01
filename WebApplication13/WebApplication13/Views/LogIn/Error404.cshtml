@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/LogIn Asset/CSS/Error.css" rel="stylesheet" />
+    <title>log in</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Log In</h2>
+        </div>
+        @using (Html.BeginForm("Check", "LogIn", FormMethod.Post, new { id = "form", @class = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-control error">
+                <label for="username">Email</label>
+                <input type="email" placeholder="Email" name="Email" id="email" />
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="form-control error">
+                <label for="username">Password</label>
+                <input type="password" placeholder="Password" name="Password" id="password" />
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="form-control error">
+                <br />
+                <small>The Email address you entered isn't connected to an account or The password that you've entered is incorrect.</small>
+            </div>
+            <button>submit</button>
+        }
+    </div>
+</body>
+</html>
