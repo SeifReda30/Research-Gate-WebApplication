@@ -1,5 +1,5 @@
 # Research-Gate-WebApplication
-This Project is for Internet Application Course Project using ASP .NET Technology.
+This Project is for Internet Application Course Project using ASP .NET MVC Technology.
 <br>I Participated in this Projet by Designing the Database, Completing Pages : Home, Add Paper, Paper Profile, Contact and About Pages
 
 ## Main Features
